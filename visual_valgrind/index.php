@@ -20,7 +20,7 @@ print_header("");
 </form>
 </div>
 <?
-$link = mysql_connect("localhost", "root", "594551")
+$link = mysql_connect("localhost", "edit this", " edit this ")
     or die ("could not connect:".mysql_error());
 mysql_select_db ("vglog",$link)
     or die ("could not select db:".mysql_error());
