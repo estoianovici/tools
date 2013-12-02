@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.41, for debian-linux-gnu (i486)
+-- MySQL dump 10.13  Distrib 5.5.34, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: vglog
 -- ------------------------------------------------------
--- Server version	5.1.41-3ubuntu12.10
+-- Server version	5.5.34-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,8 +29,14 @@ CREATE TABLE `errors` (
   `kind` varchar(255) DEFAULT NULL,
   `what` varchar(255) DEFAULT NULL,
   `auxwhat` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1869 DEFAULT CHARSET=latin1;
+  `xml_file` varchar(255) DEFAULT NULL,
+  `checked` int(11) DEFAULT '0',
+  `run_id` int(11) DEFAULT NULL,
+  `error_count` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `errors_vg_id_idx` (`vg_id`),
+  KEY `errors_run_id_idx` (`run_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=943 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,9 +55,27 @@ CREATE TABLE `frames` (
   `file` varchar(255) DEFAULT NULL,
   `line` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stack_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `frames_error_ids` (`error_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34096 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25582 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `runs`
+--
+
+DROP TABLE IF EXISTS `runs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `runs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `import_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text,
+  `archive_path` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -63,4 +87,4 @@ CREATE TABLE `frames` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-10 22:14:00
+-- Dump completed on 2013-12-02 11:44:14
